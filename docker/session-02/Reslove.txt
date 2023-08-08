@@ -1,0 +1,225 @@
+Tôi xin hoàn thành bài tập theo yêu cầu của bạn:
+
+**Bài tập 1:**
+Tạo một Dockerfile cho một ứng dụng Python in ra một thông báo. Xây dựng hình ảnh và chạy một container từ hình ảnh đó.
+
+Dockerfile:
+```Dockerfile
+# Sử dụng base image là Python
+FROM python:3.8-slim
+
+# Copy mã nguồn ứng dụng vào thư mục /app
+COPY . /app
+
+# Đặt thư mục làm việc mặc định
+WORKDIR /app
+
+# Chạy lệnh in ra thông báo
+CMD ["python", "app.py"]
+```
+
+Tạo tập tin `app.py` trong thư mục cùng cấp với Dockerfile:
+```python
+print("Hello from Docker!")
+```
+
+Tiếp theo, xây dựng hình ảnh và chạy container:
+```bash
+# Xây dựng hình ảnh
+docker build -t python-app .
+
+# Chạy container từ hình ảnh
+docker run python-app
+```
+
+**Bài tập 2:**
+Xây dựng một hình ảnh với nhiều tags, ví dụ như "latest" và một phiên bản cụ thể. Đẩy hình ảnh lên Docker Hub.
+
+```bash
+# Xây dựng hình ảnh và đặt các tags
+docker build -t your-dockerhub-username/my-image:latest -t your-dockerhub-username/my-image:v1.0 .
+
+# Đăng nhập vào Docker Hub
+docker login
+
+# Đẩy hình ảnh lên Docker Hub
+docker push your-dockerhub-username/my-image:latest
+docker push your-dockerhub-username/my-image:v1.0
+```
+
+**Bài tập 3:**
+Tạo một Dockerfile đa giai đoạn cho ứng dụng Node.js. Xây dựng ứng dụng và sao chép chỉ các tệp cần thiết vào hình ảnh cuối cùng.
+
+Dockerfile:
+```Dockerfile
+# Stage 1: Xây dựng ứng dụng
+FROM node:14 AS builder
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Stage 2: Tạo hình ảnh cuối cùng
+FROM node:14-slim
+WORKDIR /app
+COPY --from=builder /app/dist /app
+CMD ["node", "app.js"]
+```
+
+**Bài tập 4:**
+Đẩy một hình ảnh bạn đã tạo lên Docker Hub, sau đó kéo nó về máy tính khác và chạy một container.
+
+```bash
+# Đẩy hình ảnh lên Docker Hub
+docker push your-dockerhub-username/my-image:latest
+
+# Trên máy tính khác, kéo hình ảnh từ Docker Hub
+docker pull your-dockerhub-username/my-image:latest
+
+# Chạy container từ hình ảnh đã kéo
+docker run your-dockerhub-username/my-image:latest
+```
+
+**Bài tập 5:**
+Tạo một hình ảnh Nginx tùy chỉnh để xuất ra trang chủ được tùy chỉnh.
+
+Dockerfile:
+```Dockerfile
+# Sử dụng base image Nginx
+FROM nginx:latest
+
+# Thay đổi nội dung trang chủ
+COPY custom-index.html /usr/share/nginx/html/index.html
+```
+
+Tạo tập tin `custom-index.html` trong cùng thư mục với Dockerfile:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Custom Homepage</title>
+</head>
+<body>
+    <h1>Welcome to my custom homepage!</h1>
+</body>
+</html>
+```
+
+Tiếp theo, xây dựng hình ảnh và chạy container:
+```bash
+# Xây dựng hình ảnh
+docker build -t custom-nginx .
+
+# Chạy container từ hình ảnh
+docker run -d -p 8080:80 custom-nginx
+```
+
+**Bài tập 6:**
+Chạy một container Nginx ở chế độ detached,chỉ định ánh xạ một cổng cục bộ với cổng của container và truy cập trang chào mừng của Nginx.
+
+```bash
+# Chạy container Nginx ở chế độ detached, ánh xạ cổng 8080 của máy tính local sang cổng 80 của container
+docker run -d -p 8080:80 nginx
+
+# Truy cập trang chào mừng của Nginx qua trình duyệt tại địa chỉ http://localhost:8080
+```
+
+**Bài tập 7:**
+Chạy một container Ubuntu ở chế độ tương tác, truy cập shell của nó và thực hiện các lệnh cơ bản.
+
+```bash
+# Chạy container Ubuntu ở chế độ tương tác
+docker run -it ubuntu
+
+# Bạn sẽ vào shell của container Ubuntu
+
+# Thực hiện các lệnh cơ bản trong shell, ví dụ:
+ls
+pwd
+apt-get update
+apt-get install nano
+exit
+```
+
+**Bài tập 8:**
+Chạy một container với biến môi trường được đặt sử dụng cờ `-e` và chỉ thị `ENV`. Truy cập các biến môi trường này từ bên trong container.
+
+```bash
+# Chạy container với biến môi trường được đặt
+docker run -e MY_VARIABLE=my_value ubuntu
+
+# Trong shell của container, truy cập biến môi trường
+echo $MY_VARIABLE
+```
+
+**Bài tập 9:**
+Xây dựng một hình ảnh Docker bằng Dockerfile trong thư mục `issue` và chạy container bằng hình ảnh đó. Nếu gặp sự cố khi chạy container, sửa lỗi để container có thể chạy.
+
+```bash
+# Di chuyển vào thư mục 'issue' có chứa Dockerfile
+cd issue
+
+# Xây dựng hình ảnh từ Dockerfile
+docker build -t my-issue-image .
+
+# Chạy container từ hình ảnh đã xây dựng
+docker run my-issue-image
+```
+
+Nếu gặp lỗi khi chạy container, hãy kiểm tra logs của container để biết thông tin chi tiết về lỗi và sửa nó trong Dockerfile.
+
+**Bài tập 10:**
+Chạy một container, dừng nó và sau đó loại bỏ nó.
+
+```bash
+# Chạy container và giữ nó ở chế độ tương tác
+docker run -it ubuntu
+
+# Trong shell của container, thực hiện một số công việc
+
+# Khi bạn hoàn thành, thoát khỏi container (nhấn Ctrl + D hoặc gõ 'exit')
+
+# Dừng container (thay CONTAINER_ID bằng ID thực tế của container)
+docker stop CONTAINER_ID
+
+# Loại bỏ container (thay CONTAINER_ID bằng ID thực tế của container)
+docker rm CONTAINER_ID
+```
+
+**Bài tập 11:**
+Xây dựng một hình ảnh với tập tin HTML tùy chỉnh. Chạy container từ hình ảnh và sao chép một tệp từ máy tính host vào container.
+
+Dockerfile:
+```Dockerfile
+# Sử dụng base image Nginx
+FROM nginx:latest
+
+# Sao chép tệp HTML tùy chỉnh vào thư mục root của Nginx
+COPY custom.html /usr/share/nginx/html/
+```
+
+Tạo tệp `custom.html` trong cùng thư mục với Dockerfile:
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Custom HTML</title>
+</head>
+<body>
+    <h1>This is a custom HTML page.</h1>
+</body>
+</html>
+```
+
+Tiếp theo, xây dựng hình ảnh và chạy container:
+
+```bash
+# Xây dựng hình ảnh
+docker build -t custom-html-nginx .
+
+# Chạy container từ hình ảnh và ánh xạ cổng 8080
+docker run -d -p 8080:80 custom-html-nginx
+
+# Sao chép tệp từ máy tính host vào container
+docker cp path/to/local/file.html CONTAINER_ID:/usr
