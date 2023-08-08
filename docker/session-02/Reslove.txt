@@ -1,7 +1,8 @@
 Sure, here's how you can complete each of the tasks:
 
 **Task 1:**
-Create a Dockerfile for a Python application that prints a message. Build the image and run a container from it.
+Create a Dockerfile for a Python application that prints a message. 
+Build the image and run a container from it.
 
 Dockerfile:
 ```Dockerfile
@@ -34,7 +35,8 @@ Build an image with multiple tags and push it to Docker Hub.
 
 ```bash
 # Build the image with multiple tags
-docker build -t your-dockerhub-username/my-image:latest -t your-dockerhub-username/my-image:v1.0 .
+docker build -t your-dockerhub-username/my-image:latest -t 
+your-dockerhub-username/my-image:v1.0 .
 
 # Log in to Docker Hub
 docker login
@@ -45,7 +47,8 @@ docker push your-dockerhub-username/my-image:v1.0
 ```
 
 **Task 3:**
-Create a multi-stage Dockerfile for a Node.js app. Build the app and copy only the necessary files to the final image.
+Create a multi-stage Dockerfile for a Node.js app. 
+Build the app and copy only the necessary files to the final image.
 
 Dockerfile:
 ```Dockerfile
@@ -88,7 +91,8 @@ FROM nginx:latest
 COPY custom-index.html /usr/share/nginx/html/index.html
 ```
 
-Create a file named `custom-index.html` in the same directory as the Dockerfile:
+Create a file named `custom-index.html` in the same directory 
+as the Dockerfile:
 ```html
 <!DOCTYPE html>
 <html>
@@ -108,16 +112,19 @@ docker run -d -p 8080:80 custom-nginx
 ```
 
 **Task 6:**
-Run an Nginx container in detached mode, map a local port, and access the Nginx welcome page.
+Run an Nginx container in detached mode, map a local port, 
+and access the Nginx welcome page.
 
 ```bash
 docker run -d -p 8080:80 nginx
 ```
 
-Access the Nginx welcome page by opening a web browser and navigating to `http://localhost:8080`.
+Access the Nginx welcome page by opening a web browser and 
+navigating to `http://localhost:8080`.
 
 **Task 7:**
-Run an Ubuntu container interactively, access its shell, and execute basic commands.
+Run an Ubuntu container interactively, access its shell, and 
+execute basic commands.
 
 ```bash
 docker run -it ubuntu
@@ -131,7 +138,9 @@ exit
 ```
 
 **Task 8:**
-Run a container with environment variables set using the `-e` flag and `ENV` instruction. Access these variables from within the container.
+Run a container with environment variables set using the `-e` 
+flag and `ENV` instruction. Access these variables from within 
+the container.
 
 ```bash
 docker run -e MY_VARIABLE=my_value ubuntu
@@ -141,7 +150,9 @@ echo $MY_VARIABLE
 ```
 
 **Task 9:**
-Build a Docker image using the Dockerfile in the `issue` directory, then run a container using that image. Troubleshoot if necessary.
+Build a Docker image using the Dockerfile in the `issue` 
+directory, then run a container using that image. Troubleshoot 
+if necessary.
 
 ```bash
 cd issue
@@ -168,7 +179,8 @@ docker rm CONTAINER_ID
 ```
 
 **Task 11:**
-Build an image with a custom HTML file, run a container from the image, and copy a file from the host to the container.
+Build an image with a custom HTML file, run a container from 
+the image, and copy a file from the host to the container.
 
 Dockerfile:
 ```Dockerfile
@@ -179,7 +191,8 @@ FROM nginx:latest
 COPY custom.html /usr/share/nginx/html/
 ```
 
-Create a file named `custom.html` in the same directory as the Dockerfile:
+Create a file named `custom.html` in the same directory as 
+the Dockerfile:
 ```html
 <!DOCTYPE html>
 <html>
