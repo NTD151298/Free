@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+
+  database:
+    container_name: ${db_container}
+    image: ${db_image}
+    restart: always
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${db_root_pass}
+      MYSQL_DATABASE: ${db_database}
+      MYSQL_USER: ${db_user}
+      MYSQL_PASSWORD: ${db_pass}
+    volumes:
+      - ${db_volume}:/var/lib/mysql
+
+  wordpress:
+    container_name: ${fe_container}
+    image: ${fe_image}
+    ports:
+      - "${fe_port}"
+    restart: always
+    env_file: .env
+    environment:
+      WORDPRESS_DB_HOST: ${fe_to_db_host}
+      WORDPRESS_DB_USER: ${fe_to_db_user}
+      WORDPRESS_DB_PASSWORD: ${fe_to_db_pass}
+      WORDPRESS_DB_NAME: ${fe_to_db_name}
+    volumes:
+      - ${fe_volume}:/var/www/html
+    depends_on:
+      - ${fe_to_db_host}
+
+volumes:
+  wordpress_data:
+  db_data:
