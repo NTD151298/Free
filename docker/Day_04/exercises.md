@@ -14,6 +14,6 @@
 
 # 8. Launch a container that uses multiple volumes for different parts of its filesystem.
 
-9. Create two containers, migrate data from one to the other using volumes, and ensure minimal downtime.
+# 9. Create two containers, migrate data from one to the other using volumes, and ensure minimal downtime.
 
-10. Launch multiple instances of a container and share data using the same volume between them.
+# 10. Launch multiple instances of a container and share data using the same volume between them.

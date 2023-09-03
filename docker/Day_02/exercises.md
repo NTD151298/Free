@@ -18,4 +18,4 @@
 
 # 10. Run a container, stop it, and then remove it.
 
-11. Build an image with a custom HTML file. Run a container from the image and copy a file from the host to the container.
+# 11. Build an image with a custom HTML file. Run a container from the image and copy a file from the host to the container.

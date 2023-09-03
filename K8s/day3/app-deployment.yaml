@@ -11,6 +11,10 @@ spec:
   containers:
     - name: nginx # Name of the container
       image: nginx # Use the official Nginx image
+      resources:
+        limits:
+          cpu: "0.5" # Limit CPU usage to 0.5 CPU cores
+          memory: "512Mi" # Limit memory usage to 512 megabytes
 
 ---
 # Pods on Second Node (worker node)
@@ -23,6 +27,10 @@ spec:
   containers:
     - name: nginx # Name of the container
       image: nginx # Use the official Nginx image
+      resources:
+        limits:
+          cpu: "0.5" # Limit CPU usage to 0.5 CPU cores
+          memory: "512Mi" # Limit memory usage to 512 megabytes
 
 ---
 apiVersion: v1
