@@ -1,5 +1,5 @@
 # Apply the configuration defined in this YAML file using the kubectl apply command
-# kubectl apply -f new-lab.yaml
+# kubectl apply -f pod-day3.yaml
 
 # Pod on First Node (control-plane node)
 apiVersion: v1
@@ -9,17 +9,14 @@ metadata:
   labels:
     app: nginx
 spec:
-  nodeName: duong1-control-plane # Specify the name of the control-plane node
+  nodeName: duong1-worker # Specify the name of the control-plane node
   containers:
     - name: container-node1-nginx # Name of the container
       image: nginx:alpine # Use the official Nginx image
-      ports:
-        - containerPort: 80 # Nginx uses port 80
       resources:
         limits:
           cpu: "0.5" # Limit CPU usage to 0.5 CPU cores
           memory: "512Mi" # Limit memory usage to 512 megabytes
-
 ---
 apiVersion: v1
 kind: Pod
@@ -28,12 +25,10 @@ metadata:
   labels:
     app: httpd
 spec:
-  nodeName: duong1-control-plane # Specify the name of the control-plane node
+  nodeName: duong1-worker2 # Specify the name of the control-plane node
   containers:
     - name: container-node1-httpd # Name of the container
       image: httpd # Use the official httpd image
-      ports:
-        - containerPort: 80 # HTTPD also uses port 80
       resources:
         limits:
           cpu: "0.5" # Limit CPU usage to 0.5 CPU cores
