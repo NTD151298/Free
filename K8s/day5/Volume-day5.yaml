@@ -1,0 +1,90 @@
+# kubectl apply -f Volume-day5.yaml
+# Pod vp
+apiVersion: v1
+kind: Pod
+metadata:
+  name: vp-pod # Name of the pod
+spec:
+  containers:
+    - name: nginx-vp-con # Name of the container
+      image: nginx:alpine # Name imagae using to rung application
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      volumeMounts:
+        - name: my-volume-1 # Name of the volume that will be use
+          mountPath: /var/www/html
+  volumes:
+    - name: my-volume-1
+      persistentVolumeClaim:
+        claimName: vpcday5
+---
+# VPC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vpcday5
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+---
+# VP
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pvday5
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: standard
+  hostPath:
+    path: "/tmp/pv-data"
+---
+# pod emtpydir
+apiVersion: v1
+kind: Pod
+metadata:
+  name: emptydir-pod
+spec:
+  containers:
+    - name: nginx-emptydir-con
+      image: nginx:alpine
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      volumeMounts:
+        - name: my-volume-2
+          mountPath: /var/www/html
+  volumes:
+    - name: my-volume-2
+      emptyDir: {}
+---
+# pod hostpath
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostpath-pod
+spec:
+  containers:
+    - name: nginx-hostpath-con
+      image: nginx:alpine
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      volumeMounts:
+        - name: my-volume-3
+          mountPath: /data
+  volumes:
+    - name: my-volume-3
+      hostPath:
+        path: /tmp/node-data
